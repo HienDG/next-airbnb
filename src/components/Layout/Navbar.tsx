@@ -1,10 +1,31 @@
-import React from "react";
+import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 
 import { FaAirbnb, FaUserCircle } from "react-icons/fa";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 
+import { useAppSelector, useAppDispatch, useDetectClickOutsideModal } from "@src/hooks";
+
+import { selectedMenuModal } from "@app/modalSlice";
+import { toggleModal, closeModal } from "@app/modalSlice";
+
+import MenuModal from "@components/modal/MenuModal";
+
 const Navbar = () => {
+  const dispatch = useAppDispatch();
+  const buttonRef = useDetectClickOutsideModal<HTMLButtonElement>("menu");
+
+  const isMenuModalOpen = useAppSelector(selectedMenuModal);
+
+  const openMenuModal = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+
+      dispatch(toggleModal("menu"));
+    },
+    [dispatch]
+  );
+
   return (
     <header className="relative w-full h-20 border shadow-sm max-w-screen-2xl borer-solid border-neutral-200">
       <div className="flex items-center justify-between w-full h-full px-20">
@@ -39,15 +60,17 @@ const Navbar = () => {
         <div className="flex flex-grow basis-[140px] justify-end">
           <nav className="flex items-center h-20 text-gray-800 ">
             <div className="flex items-center h-full mr-2 leading-5">
-              <div className="cursor-pointer h-[42px] rounded-[22px]  hover:bg-neutral-100 transition-colors duration-200 ease-in-out p-3 bg-transparent text-center">
+              <div className="font-bold cursor-pointer h-[42px] rounded-[22px]  hover:bg-neutral-100 transition-colors duration-200 ease-in-out p-3 bg-transparent text-center">
                 Airbnb your home
               </div>
             </div>
 
-            <div className="flex items-center h-full">
+            <div className="relative flex items-center h-full">
               <button
                 type="button"
                 className="p-[5px] pl-3 flex items-center space-x-2 border border-solid shadow-sm bg-white rounded-[21px] transition-shadow duration-200 hover:shadow-md"
+                onClick={openMenuModal}
+                ref={buttonRef}
               >
                 <div className="mr-2">
                   <AiOutlineMenu size={16} />
@@ -57,6 +80,8 @@ const Navbar = () => {
                   <FaUserCircle size={30} className="fill-gray-500" />
                 </div>
               </button>
+
+              <Fragment>{isMenuModalOpen ? <MenuModal /> : null}</Fragment>
             </div>
           </nav>
         </div>

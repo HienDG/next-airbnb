@@ -8,3 +8,15 @@
       @apply leading-5 text-base text-gray-800
    }
 }
+
+@layer components {
+   .dash-line::after, .dash-line::before {
+      @apply block h-[1px] w-full bg-[#ddd]
+   }
+   .dash-line::after {
+      @apply ml-4
+   }
+   .dash-line::before {
+      @apply mr-4
+   }
+}

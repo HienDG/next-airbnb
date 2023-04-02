@@ -1,4 +1,4 @@
-export type ModalType = "menu";
+export type ModalType = "menu" | "auth";
 
 export interface ModalSliceObject {
   isOpen: Record<ModalType, boolean>;

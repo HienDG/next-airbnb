@@ -1,10 +1,11 @@
-import React, { Fragment } from "react";
+import React from "react";
 import type { NextPage } from "next";
 
 import { Roboto } from "next/font/google";
 
 import Navbar from "@components/Layout/Navbar";
 import Meta from "@components/Meta";
+import AuthModal from "@components/modal/AuthModal";
 
 interface RootLayoutProps extends AppLayout.LayoutObject {}
 
@@ -15,10 +16,11 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     <div className={roboto.className}>
       <Meta />
 
-      <Fragment>
+      <div>
         <Navbar />
         <main>{children}</main>
-      </Fragment>
+      </div>
+      <AuthModal />
     </div>
   );
 };
