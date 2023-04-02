@@ -5,7 +5,7 @@ import { Roboto } from "next/font/google";
 
 import Navbar from "@components/Layout/Navbar";
 import Meta from "@components/Meta";
-import AuthModal from "@components/modal/AuthModal";
+import ModalProvider from "./ModalProvider";
 
 interface RootLayoutProps extends AppLayout.LayoutObject {}
 
@@ -16,11 +16,10 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     <div className={roboto.className}>
       <Meta />
 
-      <div>
+      <ModalProvider>
         <Navbar />
         <main>{children}</main>
-      </div>
-      <AuthModal />
+      </ModalProvider>
     </div>
   );
 };

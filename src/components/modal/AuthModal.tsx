@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { signIn } from "next-auth/react";
 
 import { AiOutlineClose, AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
 import { Button } from "@components/ui";
 
+import { useAppDispatch } from "@src/hooks";
+
+import { closeModal } from "@src/app/modalSlice";
+
 const AuthModal = () => {
+  const dispatch = useAppDispatch();
+
+  const closeAuthModal = useCallback(() => {
+    dispatch(closeModal("auth"));
+  }, [dispatch]);
   return (
     <section className="fixed inset-0 flex items-center w-full h-full bg-black/40 z-1000 ">
       <div className="max-w-[568px] w-full max-h-[640px] h-full bg-white mx-auto rounded-3xl shadow-sm overflow-hidden relative flex flex-col">
-        <Button className="absolute block p-2 transition-colors duration-100 bg-transparent rounded-full outline-none top-4 left-6 hover:bg-neutral-200">
+        <Button
+          className="absolute block p-2 transition-colors duration-100 bg-transparent rounded-full outline-none top-4 left-6 hover:bg-neutral-200"
+          onClick={closeAuthModal}
+        >
           <AiOutlineClose size={20} />
         </Button>
 
@@ -62,12 +75,18 @@ const AuthModal = () => {
                 <span className="flex-1">Continue with Github</span>
               </Button>
 
-              <Button className="flex border border-[#222] border-solid py-[13px] px-[23px] cursor-pointer hover:bg-[#ddd] transition-colors duration-100 ease-out rounded-lg items-center">
+              <Button
+                className="flex border border-[#222] border-solid py-[13px] px-[23px] cursor-pointer hover:bg-[#ddd] transition-colors duration-100 ease-out rounded-lg items-center"
+                onClick={() => signIn("google")}
+              >
                 <FcGoogle size={20} />
                 <span className="flex-1">Continue with Google</span>
               </Button>
 
-              <Button className="flex border border-[#222] border-solid py-[13px] px-[23px] cursor-pointer hover:bg-[#ddd] transition-colors duration-100 ease-out rounded-lg items-center">
+              <Button
+                className="flex border border-[#222] border-solid py-[13px] px-[23px] cursor-pointer hover:bg-[#ddd] transition-colors duration-100 ease-out rounded-lg items-center"
+                onClick={() => signIn("github")}
+              >
                 <AiFillGithub size={20} />
                 <span className="flex-1">Continue with Github</span>
               </Button>
