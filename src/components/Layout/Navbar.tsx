@@ -18,11 +18,11 @@ const Navbar = () => {
 
         <div className="min-w-[348px] px-6">
           <div className="flex text-center align-middle shadow-sm hover:shadow-md transition-shadow duration-200 ease-in-out flex-shrink flex-grow-0 rounded-[40px] bg-white border border-solid border-[#ddd] [&>button[type=button]]:h-12 [&>button[type=button]>span]:px-4 [&>button[type=button]]:leading-[22px]">
-            <button type="button" className="pl-2 font-semibold">
+            <button type="button" className="pl-2 text-sm font-bold">
               <span className="px-4">Anywhere</span>
             </button>
 
-            <button type="button" className="font-semibold">
+            <button type="button" className="text-sm font-bold">
               <span className="border-x border-solid border-x-[#ddd]">Any Week</span>
             </button>
 
